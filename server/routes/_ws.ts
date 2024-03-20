@@ -1,3 +1,5 @@
+const sessions: any[] = [];
+
 export default defineWebSocketHandler({
   open(peer) {
     console.log("[ws] open", peer);
@@ -5,11 +7,13 @@ export default defineWebSocketHandler({
 
   message(peer, message) {
     console.log("[ws] message", peer, message);
-    if (message.text().includes("ping")) {
-      peer.send("pong");
+    console.log(message);
+    const data = JSON.parse(message);
+    if (data.type === "open") {
+      sessions.push({ peer, channel: data.channel, messages: [] });
+      console.log(sessions);
     }
-  },
-
+},
   close(peer, event) {
     console.log("[ws] close", peer, event);
   },

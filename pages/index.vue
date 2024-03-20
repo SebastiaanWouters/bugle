@@ -1,10 +1,15 @@
 <script setup lang="ts">
-onMounted(() => { const ws = new WebSocket('ws://localhost:3000/_ws'); setTimeout(() => { ws.send('test')}, 1000) });
-</script>
 
+import useSessions from '~/composables/sessions';
+const { sessions } = useSessions();
+
+</script>
 
 <template>
   <div>
     <h1>WS DEMO</h1>
+    <div v-if="sessions" v-for="(session, index) in sessions">
+      {{ session }}
+    </div>
   </div>
 </template>
