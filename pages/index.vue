@@ -7,7 +7,7 @@ const { sessions } = useSessions();
 
 <template>
   <div>
-    <h1>WS DEMO</h1>
+     <h1>WS DEMO</h1>
     <div v-if="sessions" v-for="(session, index) in sessions">
       {{ session }}
     </div>

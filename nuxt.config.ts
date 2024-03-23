@@ -6,10 +6,4 @@ export default defineNuxtConfig({
       websocket: true
     }
   },
-  modules: [
-    '@nuxt/eslint'
-  ],
-  eslint: {
-    // options here
-  }
 })
