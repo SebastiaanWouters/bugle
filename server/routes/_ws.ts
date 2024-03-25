@@ -1,4 +1,5 @@
-const sessions: any[] = [];
+import { sessions } from "../sessions";
+
 
 export default defineWebSocketHandler({
   open(peer) {
@@ -10,7 +11,14 @@ export default defineWebSocketHandler({
     console.log(message);
     const data = JSON.parse(message);
     if (data.type === "open-provider") {
+      if (!sessions.find((s) => s.channel === data.channel)) {
       sessions.push({ consumer: null, provider: peer, channel: data.channel, messages: [] });
+      } else {
+        const session = sessions.find((s) => s.channel === data.channel);
+        if (session) {
+          session.provider = peer;
+        }
+      }
       console.log(sessions);
     } else if (data.type === "open-consumer") {
       const session = sessions.find((s) => s.channel === data.channel);
